@@ -1,4 +1,5 @@
 use std::process::exit;
+use crate::parser::Parser;
 use crate::scanner::Scanner;
 
 pub struct Lox {
@@ -45,8 +46,8 @@ impl Lox {
     fn run(&self, source: String) {
         let mut scanner = Scanner::new(source);
         let tokens = scanner.scan_tokens();
-        for token in tokens {
-            println!("{:?}", token);
-        }
+        let mut parser = Parser::new(tokens);
+        let expr = parser.parse();
+        println!("{:?}", expr);
     }
 }
